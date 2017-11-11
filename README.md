@@ -1,4 +1,4 @@
-# weather
+# Weather
 ## Synopsis
 Weather predictions with json
 ## 
