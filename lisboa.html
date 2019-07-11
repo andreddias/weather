@@ -1,0 +1,90 @@
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<h3>Eventos em Lisboa</h3>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<p id="hoje"></p> 
+<table id="tabela" class="table table-striped" border='1'>
+<div class ="col-md-6">
+<th>Nome</th>
+<th>Periodo</th>
+<th>Data Inicio</th>
+<th>Data fim</th>
+<th>Foto</th>
+<th>Descrição</th>
+<th>Link</th>
+<th>Local</th>
+</div>
+</table>
+
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+var url = "https://agendalx.pt/wp-json/agendalx/v1/events/current";
+evento(url);
+var hoje = dataAtual();	
+$("#hoje").append("Hoje é "+hoje +"<br>");
+
+function evento(url){
+    $.getJSON(url, function ( data ) {
+	$.each( data, function( key, val ) {
+	    diaPublicacao = val.post_date;
+	    if (diaPublicacao > "2019-07-08 00:00:00"){
+		descricao = val.post_content;
+		nome = val.post_name;
+		dataInicio = val.StartDate;
+		dataFim = val.EndDate;
+		str = val.guid;
+		converterLink = str.link(str);
+		campoLocal = val.venue;
+		periodo = val.string_dates;
+		foto = val.featured_media;
+
+		if (val.price_val > 0){
+		    console.log(val.price_val)
+		}
+		$.each( campoLocal, function( keyCampoLocal, valorCampoLocal ) {	
+
+		    console.log(valorCampoLocal)
+		    local = valorCampoLocal.name
+
+
+		    $("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+dataInicio+'</td><td>'+dataFim+'</td><td>'+foto+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
+
+
+
+
+		});
+	    }
+	});
+    });
+}
+
+function dataAtual(){
+    var hoje = new Date();
+    var dd = hoje.getDate();
+    var mm = hoje.getMonth()+1; //January is 0!
+    var yyyy = hoje.getFullYear();
+    var dia = hoje.getDay();
+    var semana = new Array(6);
+    semana[0]='Domingo';
+    semana[1]='Segunda-Feira';
+    semana[2]='Terça-Feira';
+    semana[3]='Quarta-Feira';
+    semana[4]='Quinta-Feira';
+    semana[5]='Sexta-Feira';
+    semana[6]='Sábado';
+    diaSemana = semana[dia];
+    if(dd<10) {
+	dd = '0'+dd
+    } 
+    if(mm<10) {
+	mm = '0'+mm
+    } 
+    hoje = dd + '/' + mm + '/' + yyyy;
+    var hoje = diaSemana+" dia "+hoje;
+    return hoje;
+}
+</script>
+
+</head>
+</html>
