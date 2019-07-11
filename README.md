@@ -3,10 +3,10 @@
 Em breve
 
 # Weather
-## Synopsis
+
 Previsão do tempo
-## 
-API Reference and Help
+
+##API Reference and Help
 --
 Main site: https://openweathermap.org/appid
 --
