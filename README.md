@@ -2,13 +2,11 @@
 
 A idéia é mostrar como utilizar os dados recebidos de uma API em um front-end
 
-##
-Eventos em Lisboa
+## Eventos em Lisboa
 
 Em breve
 
-##
-Weather
+## Weather
 
 Previsão do tempo
 
