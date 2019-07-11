@@ -1,6 +1,10 @@
+# Eventos em Lisboa
+
+Em breve
+
 # Weather
 ## Synopsis
-Weather predictions with json
+Previsão do tempo
 ## 
 API Reference and Help
 --
