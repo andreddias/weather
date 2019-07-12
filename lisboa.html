@@ -39,18 +39,12 @@ function evento(url){
 		periodo = val.string_dates;
 		foto = val.featured_media;
 
-		if (val.price_val > 0){
-		    console.log(val.price_val)
-		}
 		$.each( campoLocal, function( keyCampoLocal, valorCampoLocal ) {	
 
 		    console.log(valorCampoLocal)
 		    local = valorCampoLocal.name
 
-
 		    $("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+dataInicio+'</td><td>'+dataFim+'</td><td>'+foto+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
-
-
 
 
 		});
