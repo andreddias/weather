@@ -1,14 +1,16 @@
 <html lang="pt-br">
 <head>
-	<title>Turismo e lazer em Lisboa</title>
+    <title>Turismo e lazer em Lisboa</title>
     <meta charset="UTF-8">
     <h3>Agenda Cultural de Lisboa</h3>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<p id="hoje"></p> 
- <table id="tabela" class="table table-striped" border='1'>
+	 <table id="tabela" class="table table-striped" border='1'>
             <div class ="col-md-6">
                 <th>Nome</th>
 				<th>Periodo</th>
+				<th>Categoria</th>
+				<th>Tag</th>
 				<th>Descrição</th>
 				<th>Link</th>
 				<th>Local</th>
@@ -36,23 +38,32 @@ function evento(url){
 			str = val.guid;
 			converterLink = str.link(str);
 			campoLocal = val.venue;
+			campoCategoria = val.categories_name_list;
+			campoTagNome = val.tags_name_list;
 			periodo = val.string_dates;
 			foto = val.featured_media;
+			campoPreco = val.price_val;
 			
-			 $.each( campoLocal, function( keyCampoLocal, valorCampoLocal ) {	
-			 	
-				console.log(valorCampoLocal)
-				local = valorCampoLocal.name
-				
-			
-			$("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
-				
-
-	
-			
+			$.each( campoCategoria, function( keyCampoCategoria, valorCampoCategoria ) {
+				categoria = valorCampoCategoria.name;
 			});
-			}
-	});
+			
+			$.each( campoPreco, function( keyCampoPreco, valorCampoPreco ) {
+				preco = valorCampoPreco;
+				console.log(preco);	
+				
+			});
+			//https://stackoverflow.com/questions/11197818/how-do-i-make-a-json-object-with-multiple-arrays
+			$.each( campoTagNome, function( keyCampoTag, valorCampoTag ) {	
+			tag = "#"+valorCampoTag.name;
+				
+			 $.each( campoLocal, function( keyCampoLocal, valorCampoLocal ) {	
+				local = valorCampoLocal.name
+				$("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+categoria+'</td><td>'+tag+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
+			});
+		});
+ 	}
+   });
 });
 }
 
@@ -99,8 +110,6 @@ var hoje = hoje;
 return hoje;
 }
 
-
 </script>
-
 </head>
 </html>
