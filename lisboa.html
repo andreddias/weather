@@ -1,115 +1,92 @@
 <html lang="pt-br">
 <head>
-    <title>Turismo e lazer em Lisboa</title>
-    <meta charset="UTF-8">
-    <h3>Agenda Cultural de Lisboa</h3>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<p id="hoje"></p> 
-	 <table id="tabela" class="table table-striped" border='1'>
-            <div class ="col-md-6">
-                <th>Nome</th>
-				<th>Periodo</th>
-				<th>Categoria</th>
-				<th>Tag</th>
-				<th>Descrição</th>
-				<th>Link</th>
-				<th>Local</th>
-            </div>
+  <title>Turismo e lazer em Lisboa</title>
+  <meta charset="UTF-8">
+  <h3>Agenda Cultural de Lisboa</h3>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <p id="hoje"></p>
+  <table id="tabela" class="table table-striped" border='1'>
+    <div class ="col-md-6">
+      <th>Nome</th>
+      <th>Periodo</th>
+      <th>Descrição</th>
+      <th>Link</th>
+      <th>Local</th>
+    </div>
   </table>
-	
-<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-var url = "https://agendalx.pt/wp-json/agendalx/v1/events/current";
-evento(url);
-var hoje = dataAtual();	
-$("#hoje").append("Hoje é "+hoje +"<br>");
 
-var converterDia = converterDiaAtual();	
+  <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    var url = "https://agendalx.pt/wp-json/agendalx/v1/events/current";
+    evento(url);
+    var hoje = dataAtual();
+    $("#hoje").append("Hoje é "+hoje +"<br>");
 
-function evento(url){
-	$.getJSON(url, function ( data ) {
-		  $.each( data, function( key, val ) {
-			inicioEvento = val.StartDate;
-			if (inicioEvento > converterDia){
-			descricao = val.post_content;
-			nome = val.post_title;
-			dataInicio = val.StartDate;
-			dataFim = val.EndDate;
-			str = val.guid;
-			converterLink = str.link(str);
-			campoLocal = val.venue;
-			campoCategoria = val.categories_name_list;
-			campoTagNome = val.tags_name_list;
-			periodo = val.string_dates;
-			foto = val.featured_media;
-			campoPreco = val.price_val;
-			
-			$.each( campoCategoria, function( keyCampoCategoria, valorCampoCategoria ) {
-				categoria = valorCampoCategoria.name;
-			});
-			
-			$.each( campoPreco, function( keyCampoPreco, valorCampoPreco ) {
-				preco = valorCampoPreco;
-				console.log(preco);	
-				
-			});
-			//https://stackoverflow.com/questions/11197818/how-do-i-make-a-json-object-with-multiple-arrays
-			$.each( campoTagNome, function( keyCampoTag, valorCampoTag ) {	
-			tag = "#"+valorCampoTag.name;
-				
-			 $.each( campoLocal, function( keyCampoLocal, valorCampoLocal ) {	
-				local = valorCampoLocal.name
-				$("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+categoria+'</td><td>'+tag+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
-			});
-		});
- 	}
-   });
-});
-}
+    var converterDia = converterDiaAtual();
 
-function dataAtual(){
-	var hoje = new Date();
-	var dd = hoje.getDate();
-	var mm = hoje.getMonth()+1; //January is 0!
-	var yyyy = hoje.getFullYear();
-	var dia = hoje.getDay();
-        var semana = new Array(6);
-        semana[0]='Domingo';
-        semana[1]='Segunda-Feira';
-        semana[2]='Terça-Feira';
-        semana[3]='Quarta-Feira';
-        semana[4]='Quinta-Feira';
-        semana[5]='Sexta-Feira';
-        semana[6]='Sábado';
-        diaSemana = semana[dia];
-		if(dd<10) {
-    			dd = '0'+dd
-		} 
-		if(mm<10) {
-    			mm = '0'+mm
-		} 
-hoje = dd + '/' + mm + '/' + yyyy;
-var hoje = diaSemana+" dia "+hoje;
-return hoje;
-}
+    function evento(url){
+      $.getJSON(url, function ( data ) {
+        $.each( data, function( key, val ) {
+          inicioEvento = val.StartDate;
+          if (inicioEvento > converterDia){
+            descricao = val.post_content;
+            nome = val.post_title;
+            str = val.guid;
+            converterLink = str.link(str);
+            campoLocal = val.venue;
+            periodo = val.string_dates;
+            $.each( campoLocal, function( keyCampoLocal, valorCampoLocal ) {
+              console.log(valorCampoLocal)
+              local = valorCampoLocal.name
+              $("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
+            });
+          }
+        });
+      });
+    }
+    function dataAtual(){
+      var hoje = new Date();
+      var dd = hoje.getDate();
+      var mm = hoje.getMonth()+1; //January is 0!
+      var yyyy = hoje.getFullYear();
+      var dia = hoje.getDay();
+      var semana = new Array(6);
+      semana[0]='Domingo';
+      semana[1]='Segunda-Feira';
+      semana[2]='Terça-Feira';
+      semana[3]='Quarta-Feira';
+      semana[4]='Quinta-Feira';
+      semana[5]='Sexta-Feira';
+      semana[6]='Sábado';
+      diaSemana = semana[dia];
+      if(dd<10) {
+        dd = '0'+dd
+      }
+      if(mm<10) {
+        mm = '0'+mm
+      }
+      hoje = dd + '/' + mm + '/' + yyyy;
+      var hoje = diaSemana+" dia "+hoje;
+      return hoje;
+    }
 
-function converterDiaAtual(){
-	var hoje = new Date();
-	var dd = hoje.getDate();
-	var mm = hoje.getMonth()+1;
-	var yyyy = hoje.getFullYear();
-	var dia = hoje.getDay();
- 		if(dd<10) {
-    			dd = '0'+dd
-		} 
-		if(mm<10) {
-    			mm = '0'+mm
-		} 
-hoje = yyyy + '-' + mm + '-'+dd;
-var hoje = hoje;
-return hoje;
-}
+    function converterDiaAtual(){
+      var hoje = new Date();
+      var dd = hoje.getDate();
+      var mm = hoje.getMonth()+1;
+      var yyyy = hoje.getFullYear();
+      var dia = hoje.getDay();
+      if(dd<10) {
+        dd = '0'+dd
+      }
+      if(mm<10) {
+        mm = '0'+mm
+      }
+      hoje = yyyy + '-' + mm + '-'+dd;
+      var hoje = hoje;
+      return hoje;
+    }
+  </script>
 
-</script>
 </head>
 </html>
