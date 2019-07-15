@@ -8,4 +8,4 @@ Ao baixar esse html e abrir você terá os próximos eventos de Lisboa. Pode gua
 
 ## Weather
 
-Previsão do tempo. Abaixo a referência e o help [aqui](https://openweathermap.org/appid).
+Previsão do tempo. Você pode ler a referência e o help [aqui](https://openweathermap.org/appid).
