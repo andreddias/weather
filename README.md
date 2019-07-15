@@ -8,10 +8,4 @@ Ao baixar esse html e abrir você terá os próximos eventos de Lisboa. Pode gua
 
 ## Weather
 
-Previsão do tempo. Abaixo a referência e o help.
-
-![Main site:] (https://openweathermap.org/appid)
---
-To get access to weather API you need an API key whatever account you chose from Free to Enterprise.
-Activation of an API key for Free and Startup plans takes 10 minutes.
-
+Previsão do tempo. Abaixo a referência e o help [aqui] (https://openweathermap.org/appid).
