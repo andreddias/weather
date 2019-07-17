@@ -1,108 +1,86 @@
 <html lang="pt-br">
 <head>
-<title>Turismo e lazer em Lisboa</title>
-<meta charset="UTF-8">
-<h3>Agenda Cultural de Lisboa</h3>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<p id="hoje"></p>
-<table id="tabela" class="table table-striped" border='1'>
-<div class ="col-md-6">
-<th>Nome</th>
-<th>Periodo</th>
-<th>Categoria</th>
-<th>Descrição</th>
-<th>Link</th>
-<th>Local</th>
-</div>
-</table>
+  <title>Turismo e lazer em Lisboa</title>
+  <meta charset="UTF-8">
+  <h3>Agenda Cultural de Lisboa</h3>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <p id="hoje"></p>
+  <table id="tabela" class="table table-striped" border='1'>
+    <div class ="col-md-6">
+      <th>Nome</th>
+      <th>Periodo</th>
+      <th>Foto</th>
+      <th>Descrição</th>
+      <th>Link</th>
+      <th>Local</th>
+    </div>
+  </table>
 
-<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-var url = "https://agendalx.pt/wp-json/agendalx/v1/events/current";
-evento(url);
-var hoje = dataAtual();
-$("#hoje").append("Hoje é "+hoje +"<br>");
-var converterDia = converterDiaAtual();
-function evento(url){
-    $.getJSON(url, function ( data ) {
-	$.each( data, function( key, val ) {
-	    var x = [key]
-		    inicioEvento = val.StartDate;
-	    if (inicioEvento > converterDia){
-		descricao = val.description;
-		nome = val.post_title;
-		str = val.guid;
-		converterLink = str.link(str);
-		campoLocal = val.venue;
-		periodo = val.string_dates;
-		campoCategoria = val.categories_name_list;
-		campoTag = val.tags_name_list;
-		novoArray(campoLocal)
-		var local = novoArray(campoLocal);
-		novoArray(campoCategoria)
-		var tag1 = novoArray(campoCategoria);
-		novoArray(campoTag)
-		var tag = novoArray(campoTag);
-		if (tag == tag1){
-			var categoria = "#"+tag
-		} else {
-					var categoria = "#"+tag+"<br>"+"#"+tag1;
-				}
-		$("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+categoria+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
-	    }
-	});
-    });
-}
+  <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    var url = "https://agendalx.pt/wp-json/agendalx/v1/events/current";
+    evento(url);
+    var hoje = dataAtual();
+    $("#hoje").append("Hoje é "+hoje +"<br>");
 
-function novoArray(campo){
-    $.each( campo, function( x, y ) {
-	dado = y.name;
-    });
-    return dado;
-}
+    var converterDia = converterDiaAtual();
 
-function dataAtual(){
-    var hoje = new Date();
-    var dd = hoje.getDate();
-    var mm = hoje.getMonth()+1; //January is 0!
-    var yyyy = hoje.getFullYear();
-    var dia = hoje.getDay();
-    var semana = new Array(6);
-    semana[0]='Domingo';
-    semana[1]='Segunda-Feira';
-    semana[2]='Terça-Feira';
-    semana[3]='Quarta-Feira';
-    semana[4]='Quinta-Feira';
-    semana[5]='Sexta-Feira';
-    semana[6]='Sábado';
-    diaSemana = semana[dia];
-    if(dd<10) {
-	dd = '0'+dd
+    function evento(url){
+      $.getJSON(url, function ( data ) {
+        $.each( data, function( key, val ) {
+            descricao = val.post_content;
+            nome = val.post_title;
+            str = val.guid;
+            converterLink = str.link(str);
+            //campoLocal = val.venue;
+            periodo = val.string_dates;
+            foto = val.featured_media;
+            var local = vaiLocal()
+            console.log("local "+local);
+              $("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+foto+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
+        });
+      });
     }
-    if(mm<10) {
-	mm = '0'+mm
-    }
-    hoje = dd + '/' + mm + '/' + yyyy;
-    var hoje = diaSemana+" dia "+hoje;
-    return hoje;
-}
-function converterDiaAtual(){
-    var hoje = new Date();
-    var dd = hoje.getDate();
-    var mm = hoje.getMonth()+1;
-    var yyyy = hoje.getFullYear();
-    var dia = hoje.getDay();
-    if(dd<10) {
-	dd = '0'+dd
-    }
-    if(mm<10) {
-	mm = '0'+mm
-    }
-    hoje = yyyy + '-' + mm + '-'+dd;
-    var hoje = hoje;
-    return hoje;
-}
 
-</script>
+    function vaiLocal(key, val) {
+      var i
+      for (i = 0; i < 1; i++) {
+        console.log("for "+i)
+        x = val.venue;
+      $.each( x, function( keyCampoLocal, valorCampoLocal ) {
+        var local = valorCampoLocal.name;
+        console.log("local "+local);
+          return ( local );
+        });
+      }
+    }
+    function dataAtual(){
+      var hoje = new Date();
+      var dd = hoje.getDate();
+      var mm = hoje.getMonth()+1; //January is 0!
+      var yyyy = hoje.getFullYear();
+      var dia = hoje.getDay();
+      var semana = new Array(6);
+      semana[0]='Domingo';
+      semana[1]='Segunda-Feira';
+      semana[2]='Terça-Feira';
+      semana[3]='Quarta-Feira';
+      semana[4]='Quinta-Feira';
+      semana[5]='Sexta-Feira';
+      semana[6]='Sábado';
+      diaSemana = semana[dia];
+      if(dd<10) {
+        dd = '0'+dd
+      }
+      if(mm<10) {
+        mm = '0'+mm
+      }
+      hoje = dd + '/' + mm + '/' + yyyy;
+      var hoje = diaSemana+" dia "+hoje;
+      return hoje;
+    }
+    
+  </script>
+
 </head>
 </html>
