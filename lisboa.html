@@ -35,14 +35,14 @@
             //campoLocal = val.venue;
             periodo = val.string_dates;
             foto = val.featured_media;
-            var local = vaiLocal()
+            var local = novoArray()
             console.log("local "+local);
               $("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+foto+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
         });
       });
     }
 
-    function vaiLocal(key, val) {
+    function novoArray(key, val) {
       var i
       for (i = 0; i < 1; i++) {
         console.log("for "+i)
