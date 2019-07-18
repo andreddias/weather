@@ -8,4 +8,4 @@ Você sabia que a maioria dos estados e países possui dados públicos disponív
 
 ## Weather
 
-Previsão do tempo. Você pode ler a referência e o help [aqui](https://openweathermap.org/appid).
+Previsão do tempo. É necessário criar uma chave de API, você pode ler a referência e o help [aqui](https://openweathermap.org/appid).
