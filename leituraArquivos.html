@@ -1,139 +1,157 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
-<title>Procura erros</title>
-<h3>Leitor de arquivos</h3>
-<p>Procure erros no ficheiro de log</p>
-<meta name="author" content="Andre Dias">
+    <head>
+        <title>Procure a palavra</title>
+        <meta name="author" content="Andre Dias">
+    </head>
 
-<style>
-  #progress_bar {
-    margin: 10px 0;
-    padding: 3px;
-    border: 1px solid #000;
-    font-size: 14px;
-    clear: both;
-    opacity: 0;
-    -moz-transition: opacity 1s linear;
-    -o-transition: opacity 1s linear;
-    -webkit-transition: opacity 1s linear;
-  }
-  #progress_bar.loading {
-    opacity: 1.0;
-  }
-  #progress_bar .percent {
-    background-color: #99ccff;
-    height: auto;
-    width: 0;
-  }
-</style>
+    <style>
+        #progress_bar {
+            margin: 10px 0;
+            padding: 3px;
+            border: 1px solid #000;
+            font-size: 14px;
+            clear: both;
+            opacity: 0;
+            -moz-transition: opacity 1s linear;
+            -o-transition: opacity 1s linear;
+            -webkit-transition: opacity 1s linear;
+        }
+        
+        #progress_bar.loading {
+            opacity: 1.0;
+        }
+        
+        #progress_bar .percent {
+            background-color: #99ccff;
+            height: auto;
+            width: 0;
+        }
+    </style>
+    <td>Digite a palavra que deseja encontrar no arquivo:</td>
+    <br />
+    <input type="text" id="palavra" name="palavra" onclick="this.value = ''">
+    <button type="button" onclick="getVal();">Ok</button>
+    <br />
+    <br />
+    <td>Selecione o arquivo que deseja procurar a palavra digitada:</td>
+    <br />
+    <input type="file" id="files" name="file" />
+    <button onclick="abortRead();">Cancelar leitura</button>
+    <div id="progress_bar">
+        <div class="percent">0%</div>
+    </div>
+    <br />
 
-<input type="file" id="files" name="file" />
-<button onclick="abortRead();">Cancelar leitura</button>
-<div id="progress_bar"><div class="percent">0%</div></div>
-<div id="output"></div>
+    <div id="resultado">
 
-<script>
-  var reader;
-  var progress = document.querySelector('.percent');
+        <script>
+            function getVal() {
+                var palavra = document.getElementById('palavra').value;
+                console.log(palavra);
+                return palavra;
+            }
 
-  function abortRead() {
-    reader.abort();
-  }
+            var reader;
+            var progress = document.querySelector('.percent');
 
-  function errorHandler(evt) {
-    switch(evt.target.error.code) {
-      case evt.target.error.NOT_FOUND_ERR:
-        alert('File Not Found!');
-        break;
-      case evt.target.error.NOT_READABLE_ERR:
-        alert('File is not readable');
-        break;
-      case evt.target.error.ABORT_ERR:
-        break; // noop
-      default:
-        alert('Um erro ocorreu lendo o arquivo.');
-    };
-  }
+            function abortRead() {
+                reader.abort();
+            }
 
-  function updateProgress(evt) {
-    // evt is an ProgressEvent.
-    if (evt.lengthComputable) {
-      var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
-      // Increase the progress bar length.
-      if (percentLoaded < 100) {
-        progress.style.width = percentLoaded + '%';
-        progress.textContent = percentLoaded + '%';
-      }
-    }
-  }
+            function errorHandler(evt) {
+                switch (evt.target.error.code) {
+                    case evt.target.error.NOT_FOUND_ERR:
+                        alert('File Not Found!');
+                        break;
+                    case evt.target.error.NOT_READABLE_ERR:
+                        alert('File is not readable');
+                        break;
+                    case evt.target.error.ABORT_ERR:
+                        break; // noop
+                    default:
+                        alert('Um erro ocorreu lendo o arquivo.');
+                };
+            }
 
-  function handleFileSelect(evt) {
-    // Reset progress indicator on new file selection.
-    progress.style.width = '0%';
-    progress.textContent = '0%';
+            function updateProgress(evt) {
+                // evt is an ProgressEvent.
+                if (evt.lengthComputable) {
+                    var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+                    // Increase the progress bar length.
+                    if (percentLoaded < 100) {
+                        progress.style.width = percentLoaded + '%';
+                        progress.textContent = percentLoaded + '%';
+                    }
+                }
+            }
 
-    var reader = new FileReader();
-    reader.onerror = errorHandler;
-    reader.onprogress = updateProgress;
-    reader.onabort = function(e) {
-      alert('Leitura do arquivo cancelada');
-    };
-    reader.onloadstart = function(e) {
-      document.getElementById('progress_bar').className = 'loading';
-    };
-    reader.onload = function(e) {
-      // Ensure that the progress bar displays 100% at the end.
-      progress.style.width = '100%';
-      progress.textContent = '100%';
-      setTimeout("document.getElementById('progress_bar').className='';", 2000);
-      var dataURL = reader.result;
-	  console.log("dataURL: " +dataURL);
-	  
-//Você pode encontrar uma palavra usando o método indexOf('suaPalavra');
-//O método irá retornar o index da palavra buscada, no caso, acredito que ficará algo assim:
-//Para testar se encontrou basta verificar o valor retornado, no caso, se for diferente de -1 é que a palavra foi localizada.
-//https://pt.stackoverflow.com/questions/55524/como-procurar-palavras-com-javascript
+            function handleFileSelect(evt) {
+                // Reset progress indicator on new file selection.
+                progress.style.width = '0%';
+                progress.textContent = '0%';
 
-var items = dataURL.split('10:18:42,225');
-var count = items.length;
-var result = [];
-for (var i = 1; i < count; i += 2)
-    var quant = result.push(items[i]);
-		console.log("resultado " +result.push(items[i]))
+                var reader = new FileReader();
+                reader.onerror = errorHandler;
+                reader.onprogress = updateProgress;
+                reader.onabort = function(e) {
+                    alert('Leitura do arquivo cancelada');
+                };
+                reader.onloadstart = function(e) {
+                    document.getElementById('progress_bar').className = 'loading';
+                };
+                reader.onload = function(e) {
+                    // Ensure that the progress bar displays 100% at the end.
+                    progress.style.width = '100%';
+                    progress.textContent = '100%';
+                    setTimeout("document.getElementById('progress_bar').className='';", 2000);
+                    var dataURL = reader.result;
+                    console.log("dataURL: " + dataURL);
 
-		if (quant = 1){
-			console.log("não foi encontrado resultado ")
-		} else {
-			console.log("resultado " +quant)
-		}
-		
-	  /* https://www.javascripture.com/FileReader
-    reader.readAsDataURL(input.files[0]); lê todo o arquivo e demora
-	*/
+                    /*
+                    var message = "Hello world!";
+                    var x = message.toUpperCase();
+                    */
+                    var variavel = getVal();
+                    var items = dataURL.split(variavel);
+                    var count = items.length;
+                    var result = [];
+                    for (var i = 1; i < count; i += 2)
+                        var quant = result.push(items[i]);
 
-  };
-	
-    // Read in the image file as a binary string.
-    reader.readAsBinaryString(evt.target.files[0]);
-  }
-	
+                    buscarPalavra(quant, variavel);
 
- /* 	var arquivo = reader.readAsText('files');
-    console.log(arquivo);
-	var error = reader.error;
-    var texte=reader.result;
-    document.getElementById("DisplayText").innerText=reader.result; /*<p id="DisplayText>
-https://stackoverflow.com/questions/40146768/how-filereader-readastext-in-html5-file-api-works
-https://stackoverflow.com/questions/42099368/file-reader-telling-me-that-parameter-1-is-not-a-blob/42099672
-*/
+                };
 
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
- // document.getElementById("output").innerHTML =(result)
+                // Read in the image file as a binary string.
+                reader.readAsBinaryString(evt.target.files[0]);
+            }
 
+            function buscarPalavra(quant, palavra) {
 
-</script>
+                console.log("quant " + quant);
+
+                if (quant >= 2) {
+                    console.log("A palavra " + palavra + " foi encontrada " + quant + " veze(s)");
+                    var resultado = "A palavra " + palavra + " foi encontrada " + quant + " veze(s)";
+                } else if (quant == 1) {
+                    console.log("A palavra " + palavra + " foi encontrada " + quant + " vez");
+                    var resultado = "A palavra " + palavra + " foi encontrada " + quant + " vez";
+
+                } else {
+                    console.log("Palavra " + palavra + " não foi encontrada.");
+                    var resultado = "Palavra " + palavra + " não foi encontrada.";
+                }
+
+                document.getElementById('resultado').value;		
+            }
+
+            document.getElementById('files').addEventListener('change', handleFileSelect, false);
+        </script>
 
 </body>
+
 </html>
