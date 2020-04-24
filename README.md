@@ -1,5 +1,11 @@
 # Projetos utilizando Javascript 
 
+## Leitura de arquivos
+
+Selecionar um arquivo e procurar se uma palavra existe e quantas vezes ela aparece no arquivo.
+
+# Projetos utilizando Json 
+
 Como utilizar em uma página front-end os dados recebidos de uma API.
 
 ## Eventos em Lisboa
@@ -9,7 +15,3 @@ Você sabia que a maioria dos estados e países possui dados públicos disponív
 ## Weather
 
 Previsão do tempo. É necessário criar uma chave de API, você pode ler a referência e o help [aqui](https://openweathermap.org/appid).
-
-## Leitura de arquivos
-
-Selecionar um arquivo e procurar se uma palavra existe e quantas vezes ela aparece no arquivo.
