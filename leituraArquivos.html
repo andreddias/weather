@@ -49,10 +49,14 @@
     <p id="mensagemResposta" name="exibirResposta()">
 
         <script>
-            function getVal() {
+           function getVal() {
                 var palavra = document.getElementById('palavra').value;
-                console.log(palavra);
-                return palavra;
+                if (palavra.length > 3) {
+                    return palavra;
+                } else {
+                    alert("Informe mais de 3 caracteres.");
+                    return false;
+                }
             }
 
             var reader;
