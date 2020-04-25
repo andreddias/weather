@@ -46,7 +46,7 @@
     </div>
     <br />
 
-    <div id="resultado">
+    <p id="mensagemResposta" name="exibirResposta()">
 
         <script>
             function getVal() {
@@ -124,6 +124,10 @@
 
                     buscarPalavra(quant, variavel);
 
+                    /* https://www.javascripture.com/FileReader
+                    reader.readAsDataURL(input.files[0]); lê todo o arquivo e demora
+	                */
+
                 };
 
                 // Read in the image file as a binary string.
@@ -132,24 +136,25 @@
 
             function buscarPalavra(quant, palavra) {
 
-                console.log("quant " + quant);
-
                 if (quant >= 2) {
-                    console.log("A palavra " + palavra + " foi encontrada " + quant + " veze(s)");
                     var resultado = "A palavra " + palavra + " foi encontrada " + quant + " veze(s)";
                 } else if (quant == 1) {
-                    console.log("A palavra " + palavra + " foi encontrada " + quant + " vez");
                     var resultado = "A palavra " + palavra + " foi encontrada " + quant + " vez";
 
                 } else {
-                    console.log("Palavra " + palavra + " não foi encontrada.");
                     var resultado = "Palavra " + palavra + " não foi encontrada.";
                 }
 
-                document.getElementById('resultado').value;		
+                exibirResposta(resultado);
+
+            }
+
+            function exibirResposta(resultado) {
+                document.getElementById("mensagemResposta").innerHTML = resultado;
             }
 
             document.getElementById('files').addEventListener('change', handleFileSelect, false);
+            
         </script>
 
 </body>
