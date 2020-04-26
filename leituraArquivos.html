@@ -54,8 +54,8 @@
                 if (palavra.length > 3) {
                     return palavra;
                 } else {
-                    alert("Informe mais de 3 caracteres.");
-                    return false;
+                    var aviso = document.getElementById("mensagemResposta").textContent = "Informe no mínimo 4 caracteres";
+                    return aviso;
                 }
             }
 
