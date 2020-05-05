@@ -14,7 +14,7 @@ Você sabia que a maioria dos estados e países possui dados públicos disponív
 
 ## Centros de Saúde 
 
-Encontre o centro de saúde desejado.
+Encontre o centro de saúde desejado. Veja o [código] (https://github.com/andreddias/javascript/blob/master/centrosaude.html).
 
 ## Eventos em Lisboa 
 
