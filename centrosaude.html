@@ -6,43 +6,44 @@
     <meta name="description" content="Encontre o centro de saúde que deseja">
     <meta name="keywords" content="Centro de saúde">
 
-    <body>
-        <h3>Centro de saúde</h3>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <p id="hoje"></p>
-
-    <div>
-            <select name="selectFreguesia" id="selectFreguesia" onchange="freguesiaSelecionada();">
-            </select>
+<body>
+    <p id="hoje"></p>
+	<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Health Centers in Lisbon">
+	<h3>Centros de saúde em Lisboa</h3>
+</span>
+        
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<label for="freguesia">Escolha a freguesia:</label>
+	<div>
+        <select name="selectFreguesia" id="selectFreguesia" onchange="freguesiaSelecionada();">
+        </select>
     </div>
 </br>
   
     <table id="tabela" class="table table-striped">
         <div class ="col-md-6">
         <th>atividade</th>
+		<th>tipo</th>
         <th width="400">morada</th>
         </div>
     </table>
 
-    <style>
-/*https://developer.mozilla.org/pt-BR/docs/Web/Guide/HTML/Forms/Meu_primeiro_formulario_HTML    */
+<span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Limpe a pesquisa">
+  <button class="btn btn-primary" id="BtnCurtir" onchange="atualizaPagina();" style="pointer-events: none;" type="button" disabled>Atualizar</button>
+</span>
+<style>
+body {
+width: 100%;
+ background: lightblue;
+margin-top: 2%;
+margin-left: 2%;
 
-    form {
-        /* Apenas para centralizar o form na página */
-        margin: 0 auto;
-        /* Para ver as bordas do formulário */
-        padding: 1em;
-        border: 1px solid #CCC;
-        border-radius: 1em;
-    }
-    form div + div {
-        margin-top: 1em;
-    }
-</style>
-    
-        <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script>
-            var url = "https://services.arcgis.com/1dSrzEWVQn5kHHyK/ArcGIS/rest/services/POISaude/FeatureServer/0/query?where=1%3D1&outFields=*&f=pgeojson";           
+}
+</style>    
+<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+            var url = "https://services.arcgis.com/1dSrzEWVQn5kHHyK/ArcGIS/rest/services/POISaude/FeatureServer/0/query?where=1%3D1&outFields=*&f=pgeojson";
+           
             var hoje = dataAtual();
             $("#hoje").append("Hoje é " + hoje + "<br>");
 
@@ -54,36 +55,44 @@
             $('#selectFreguesia').append($('<option></option>').val(p).html(p));
             });
 
+
+
             function freguesiaSelecionada(){
 
                 if  (selectFreguesia.selectedIndex != 0){
                 var freguesia = document.getElementById("selectFreguesia").value;
 
-	                $.getJSON(url, function(data) { 
-        	            $.each(data, function(key, value) {
-                	      var valor = JSON.stringify(value);
-	              	      carregarCombo(value, freguesia);
-                    	     });
-                 	});
+                $.getJSON(url, function(data) {
+                  
+                    $.each(data, function(key, value) {
+                      var valor = JSON.stringify(value);
+
+                    carregarCombo(value, freguesia);
+                        });
+                      });
                 }
             }
 
             function carregarCombo(value, freguesia) {
-		    if (typeof value === "string") {
-			    return undefined; 
+			        if (typeof value === "string") {
+                        return undefined; 
                     }
-		    for (var i = 0; i < value.length; i++) {
-                    //return value[0];            
-                    //value[0].geometry
-                    //var freguesia = value[i].properties.FREGUESIA; 
-                    var atividade = value[i].properties.ACTIVIDADE_NOME; 
-                    var morada = value[i].properties.MORADA; 	
-			    if (freguesia === value[i].properties.FREGUESIA){ 
-				    $("#tabela").append('<tr><td>'+atividade+'</td><td>'+morada+'</td></tr>');
-			    };
+ 
+                              for (var i = 0; i < value.length; i++) {
+                                //return value[0];            
+                                var coordenadas = value[i].geometry.coordinates;
+								////http://www.linhadecodigo.com.br/artigo/3653/usando-geolocalizacao-com-html5.aspx
+                                //var freguesia = value[i].properties.FREGUESIA; 
+                                var atividade = value[i].properties.ACTIVIDADE_NOME; 
+								var tipoAtividade = value[i].properties.TIPO_ACTIVIDADE;
+                                var morada = value[i].properties.MORADA; 
+				                if (freguesia === value[i].properties.FREGUESIA){ 
+										console.log(coordenadas);
+										$("#tabela").append('<tr><td>'+atividade+'</td><td>'+tipoAtividade+'</td><td>'+morada+'</td></tr>');
+								};
                     }
-
-            }
+				habilitaBotao();
+                }
 				
             function dataAtual() {
                 var hoje = new Date();
@@ -110,6 +119,15 @@
                 var hoje = diaSemana + " dia " + hoje;
                 return hoje;
             }
+			
+			function habilitaBotao(){
+			    document.getElementById("BtnCurtir").disabled = false;
+			}
+			
+			function atualizaPagina(){
+				window.location.reload();
+			}
+			
 
         </script>
     </body>
