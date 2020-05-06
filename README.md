@@ -14,7 +14,11 @@ Você sabia que a maioria dos estados e países possui dados públicos disponív
 
 ## Centros de Saúde 
 
-Encontre o centro de saúde desejado. Veja o [código] (https://github.com/andreddias/javascript/blob/master/centrosaude.html).
+Encontre o centro de saúde desejado, após selecionar a morada são exibidos os centros de saúde do sítio desejado em uma tabela. Veja o [código](https://github.com/andreddias/javascript/blob/master/centrosaude.html).
+
+## Farmácias
+
+Encontre a farmácia desejada. Após selecionar a farmácia são exibidos os dados de contato. Veja o [código](https://github.com/andreddias/javascript/blob/master/farmacia.html).
 
 ## Eventos em Lisboa 
 
