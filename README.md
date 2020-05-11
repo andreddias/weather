@@ -22,8 +22,7 @@ Encontre a farmácia desejada. Após selecionar a farmácia são exibidos os dad
 
 ## Eventos em Lisboa 
 
-Você consegue ver e fazer o download do HTML clicando [aqui](https://github.com/andreddias/json_projects/blob/master/lisboa.html). Ao abrir você terá os próximos eventos de Lisboa recebidos pela API, pode guardar no celular e curtir o que tiver disponível pela cidade. Quando tiver tempo vou verificar a hipótese de criar um aplicativo. 
-Obs: Devido ao COVID-19 o serviço está fora do ar.
+Você consegue ver e fazer o download do HTML clicando [aqui](https://github.com/andreddias/json_projects/blob/master/eventosLisboa.html). Ao abrir você terá os próximos eventos de Lisboa recebidos pela API, pode guardar no celular e curtir o que tiver disponível pela cidade. Quando tiver tempo vou verificar a hipótese de criar um aplicativo. 
 
 ## Cotação do dólar
 
