@@ -15,13 +15,12 @@
 <th>Categoria</th>
 <th>Descrição</th>
 <th>Link</th>
-<th>Local</th>
 </div>
 </table>
 
 <script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-var url = "https://agendalx.pt/wp-json/agendalx/v1/events/current";
+var url = "https://www.agendalx.pt/wp-json/agendalx/v1/events";
 evento(url);
 var hoje = dataAtual();
 $("#hoje").append("Hoje é "+hoje +"<br>");
@@ -33,15 +32,13 @@ function evento(url){
 		    inicioEvento = val.StartDate;
 	    if (inicioEvento > converterDia){
 		descricao = val.description;
-		nome = val.post_title;
-		str = val.guid;
+		nome = val.title.rendered;
+		console.log(val);
+		str = val.link;
 		converterLink = str.link(str);
-		campoLocal = val.venue;
 		periodo = val.string_dates;
 		campoCategoria = val.categories_name_list;
 		campoTag = val.tags_name_list;
-		novoArray(campoLocal)
-		var local = novoArray(campoLocal);
 		novoArray(campoCategoria)
 		var tag1 = novoArray(campoCategoria);
 		novoArray(campoTag)
@@ -51,8 +48,9 @@ function evento(url){
 		} else {
 					var categoria = "#"+tag+"<br>"+"#"+tag1;
 				}
-		$("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+categoria+'</td><td>'+descricao+'</td><td>'+converterLink+'</td><td>'+local+'</td></tr>');
-	    }
+		$("#tabela").append('<tr><td>'+nome+'</td><td>'+periodo+'</td><td>'+categoria+'</td><td>'+descricao+'</td><td>'+converterLink+'</td></tr>');
+		}
+		
 	});
     });
 }
