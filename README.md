@@ -20,14 +20,14 @@ Encontre o centro de saúde desejado, após selecionar a morada são exibidos os
 
 Encontre a farmácia desejada. Após selecionar a farmácia são exibidos os dados de contato. Veja o [código](https://github.com/andreddias/javascript/blob/master/farmacia.html).
 
-## Eventos em Lisboa 
+# Eventos em Lisboa 
 
 Você consegue ver e fazer o download do HTML clicando [aqui](https://github.com/andreddias/json_projects/blob/master/eventosLisboa.html). Ao abrir você terá os próximos eventos de Lisboa recebidos pela API, pode guardar no celular e curtir o que tiver disponível pela cidade. Quando tiver tempo vou verificar a hipótese de criar um aplicativo. 
 
-## Cotação do dólar
+# Cotação do dólar
 
 O governo brasileiro disponibiliza a cotação do dólar. Para verificar a cotação dos últimos cinco dias acesse a minha página [aqui](https://andreddias.wixsite.com/home/cambio). 
 
-## Weather
+# Weather
 
 Previsão do tempo. É necessário criar uma chave de API, você pode ler a referência e o help [aqui](https://openweathermap.org/appid).
