@@ -2,7 +2,7 @@
 
 ## Leitura de arquivos
 
-Selecionar um arquivo e procurar se uma palavra existe e quantas vezes ela aparece no arquivo.
+Selecionar um arquivo e procurar se uma palavra existe e quantas vezes ela aparece no arquivo. Veja o [código](https://github.com/andreddias/javascript/blob/master/leituraArquivos.html).
 
 # Projetos utilizando Json 
 
