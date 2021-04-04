@@ -31,3 +31,7 @@ O governo brasileiro disponibiliza a cotação do dólar. Para verificar a cota�
 # Weather
 
 Previsão do tempo. É necessário criar uma chave de API, você pode ler a referência e o help [aqui](https://openweathermap.org/appid).
+
+# Futebol
+
+O site api.football-data.org tem o resultado das partidas, partidas agendadas e partidas em andamento, tudo dividido por campeonato. (projeto em andamento)
