@@ -34,4 +34,4 @@ Previsão do tempo. É necessário criar uma chave de API, você pode ler a refe
 
 # Futebol
 
-O site api.football-data.org tem o resultado das partidas, partidas agendadas e partidas em andamento, tudo dividido por campeonato. (projeto em andamento)
+O site api.football-data.org tem o resultado das partidas, partidas agendadas e em andamento, tudo dividido por campeonato. (projeto em andamento)
